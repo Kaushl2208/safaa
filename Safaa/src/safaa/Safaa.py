@@ -10,13 +10,46 @@ import os
 import re
 import spacy
 from joblib import load, dump
-import pkg_resources
+from importlib.resources import files, as_file
+from importlib.metadata import version
 import shutil
 
 # Constants
-DEFAULT_MODEL_DIR = pkg_resources.resource_filename(__name__, "models")
-LOCAL_MODEL_DIR = "/home/fossy/Safaa"
-CONFIGS_DIR = pkg_resources.resource_filename(__name__, "configs")
+PACKAGE_NAME = "safaa"
+MODELS_REF = files(PACKAGE_NAME).joinpath("models")
+CONFIGS_REF = files(PACKAGE_NAME).joinpath("configs")
+LOCAL_MODEL_DIR = os.path.join(os.path.dirname(__file__), "models")
+
+BASE_CACHE_DIR = os.path.join(os.path.expanduser("~"), ".cache", "safaa", version(PACKAGE_NAME))
+MODEL_CACHE_DIR = os.path.join(BASE_CACHE_DIR, "models")
+CONFIG_CACHE_DIR = os.path.join(BASE_CACHE_DIR, "configs")
+
+
+def _extract_if_needed(resource_ref, target_dir):
+    """
+    Ensures resource is available as a real directory on disk.
+    Extraction occurs only once.
+    """
+    if os.path.exists(target_dir) and os.listdir(target_dir):
+        return target_dir
+
+    os.makedirs(target_dir, exist_ok=True)
+
+    with as_file(resource_ref) as src_path:
+        if src_path.is_dir():
+            shutil.copytree(src_path, target_dir, dirs_exist_ok=True)
+        else:
+            shutil.copy2(src_path, target_dir)
+
+    return target_dir
+
+
+def get_default_model_dir():
+    return _extract_if_needed(MODELS_REF, MODEL_CACHE_DIR)
+
+
+def get_configs_dir():
+    return _extract_if_needed(CONFIGS_REF, CONFIG_CACHE_DIR)
 
 
 class SafaaAgent:
@@ -36,7 +69,7 @@ class SafaaAgent:
             else (
                 LOCAL_MODEL_DIR
                 if use_local_model and os.path.exists(LOCAL_MODEL_DIR)
-                else DEFAULT_MODEL_DIR
+                else get_default_model_dir()
             )
         )
 
@@ -290,7 +323,7 @@ class SafaaAgent:
         """
 
         # Determine the configuration file path
-        cfg_path = config_path or CONFIGS_DIR
+        cfg_path = config_path or get_configs_dir()
         config_file_path = os.path.join(cfg_path, "train.cfg")
 
         # Read the configuration file
@@ -373,7 +406,7 @@ class SafaaAgent:
         os.makedirs(save_path, exist_ok=True)
 
         # Check directory permissions
-        if not os.access(path, os.W_OK):
+        if not os.access(save_path, os.W_OK):
             print(
                 "Write permissions are not granted for the directory: "
                 f"{save_path}"

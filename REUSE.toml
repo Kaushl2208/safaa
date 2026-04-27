@@ -20,3 +20,9 @@ path = "Safaa/src/safaa/models/*.pkl"
 precedence = "override"
 SPDX-FileCopyrightText = "© 2023 abdelrahmanjamal5565@gmail.com, Fossology contributors"
 SPDX-License-Identifier = "LGPL-2.1-only"
+
+[[annotations]]
+path = "poetry.lock"
+precedence = "override"
+SPDX-FileCopyrightText = "© 2026 kaushlendra-pratap.singh@siemens.com, Fossology contributors"
+SPDX-License-Identifier = "LGPL-2.1-only"
