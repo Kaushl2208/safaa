@@ -19,16 +19,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
+      - name: Install poetry
+        run: pipx install poetry
+
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
-          python-version: '3.10'
+          python-version: '3.13'
           architecture: 'x64'
+          cache: 'poetry'
 
       - name: Install flake8
         run: |
-          python3 -m pip install --upgrade pip
-          python3 -m pip install flake8
+          pipx install flake8
 
       - name: Run flake8
         run: |

@@ -20,16 +20,20 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v6
-      - name: Setup python
+
+      - name: Install poetry
+        run: pipx install poetry
+
+      - name: Set up Python
         uses: actions/setup-python@v6
         with:
-          python-version: '3.12'
+          python-version: '3.13'
           architecture: 'x64'
-      - name: Install Poetry
-        run: python3 -m pip install --upgrade pip poetry
+          cache: 'poetry'
+
       - name: Build packages
         run: poetry build
-        working-directory: ./Safaa
+
       - name: Upload Packages to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
