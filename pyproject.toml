@@ -58,7 +58,7 @@ maintainers = [
 requires-python = '>=3.9,<3.14'
 dependencies = [
     'spacy (==3.8.7)',
-    'joblib (==1.5.2)',
+    'joblib (==1.5.3)',
     'pandas (==2.3.1)',
     'scikit-learn (==1.6.1)'
 ]
