@@ -6,6 +6,32 @@
 
 All notable changes to this project will be documented in this file.  
 This project adheres to [Semantic Versioning](https://semver.org/).
+---
+
+## Safaa 0.0.4  (2026-05-12)
+
+This release focuses on dependency updates, build improvements, and CI/CD
+enhancements. Key updates include upgrading joblib and urllib3 to their
+latest versions, implementing Poetry caching in CI workflows, and upgrading
+the Poetry configuration to version 2 specification. Additional improvements
+include extended Poetry support for better build compatibility and resolution
+of user warnings. The release also updates CI action versions
+(fsfe/reuse-action 5 -> 6, actions/checkout 5 -> 6) to maintain
+compatibility with the latest toolchain.
+
+### Authors:
+```
+> Gaurav Mishra <mishra.gaurav@siemens.com>
+> Kaushlendra Pratap <kaushlendra-pratap.singh@siemens.com>
+```
+### Changes:
+* `8bc951b` chore(safaa): dependency upgrade for joblib
+* `1e8c21c` chore(deps): bump urllib3 from 2.6.3 to 2.7.0
+* `a64ebde` feat(ci): use caching for poetry
+* `525914f` chore(poetry): upgrade version 2 spec
+* `2b8dd45` fix(build): extend poetry support and fix user warnings
+* `553dd77` chore(deps): bump fsfe/reuse-action from 5 to 6
+* `cdac0ae` chore(deps): bump actions/checkout from 5 to 6
 
 ---
 
