@@ -92,7 +92,7 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
           GITHUB_ACTOR: ${{ github.actor }}
         run: |
-          python scripts/train_and_release.py \
+          poetry run python scripts/train_and_release.py \
             --csv "${{ steps.params.outputs.csv }}" \
             --text-col "${{ steps.params.outputs.text_col }}" \
             --label-col "${{ steps.params.outputs.label_col }}" \

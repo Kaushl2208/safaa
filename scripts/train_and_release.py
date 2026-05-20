@@ -24,8 +24,9 @@ import logging
 import os
 import subprocess
 import sys
-import requests
 from datetime import datetime, timezone
+
+import requests
 
 try:
     import pandas as pd
@@ -73,7 +74,6 @@ def create_branch_and_push(files_to_commit, branch_name, commit_message):
 
 
 def create_pull_request(branch_name, title, body, base="main"):
-
     github_token = os.environ["GITHUB_TOKEN"]
     repo = os.environ["GITHUB_REPOSITORY"]
     url = f"https://api.github.com/repos/{repo}/pulls"
