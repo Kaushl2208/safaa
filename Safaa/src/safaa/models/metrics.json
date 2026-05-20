@@ -1,0 +1,10 @@
+{
+  "accuracy": 0.9928801102434544,
+  "precision": 0.9825046040515654,
+  "recall": 0.9888785912882299,
+  "f1": 0.9856812933025404,
+  "train_size": 17416,
+  "test_size": 4354,
+  "csv_file": "false_positive_detection_dataset.csv",
+  "timestamp": "2026-05-20T06:08:07.299726+00:00"
+}
